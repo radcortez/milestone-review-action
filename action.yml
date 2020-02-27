@@ -1,0 +1,13 @@
+name: 'Milestone Status Action'
+description: 'Checks if the given Milestone exists and all the issues are closed'
+inputs:
+  github-token:
+    description: The GitHub token used to create an authenticated client
+    default: ${{github.token}}
+    required: false
+  milestone-number:
+    description: 'The milestone number to check'
+    required: true
+runs:
+  using: 'node12'
+  main: 'index.js'
