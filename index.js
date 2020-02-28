@@ -3,7 +3,7 @@ const github = require('@actions/github');
 
 try {
     const milestoneNumber = core.getInput('milestone-number');
-    console.log(`Checking ${milestoneNumber}`);
+    console.log(`Checking Milestone with number ${milestoneNumber}`);
 
     const octokit = new github.GitHub(core.getInput('github-token'));
 
@@ -16,14 +16,14 @@ try {
         console.log(`Found Milestone ${data.title}`);
 
         if (data.open_issues > 0) {
-            core.setFailed(`Milestone ${milestoneNumber} still has ${data.open_issues} open issues!`);
+            core.setFailed(`Milestone ${data.title} still has ${data.open_issues} open issues!`);
+        } else {
+            console.log(`Milestone has no issues open.`)
         }
-
-        console.log(`Milestone has no issues open.`)
 
     }).catch((error) => {
         if (error.status === 404) {
-            core.setFailed(`Milestone ${milestoneNumber} Not Found!`);
+            core.setFailed(`Milestone with number ${milestoneNumber} Not Found!`);
         } else {
             console.debug(error);
             core.setFailed('Unknown Error!')
