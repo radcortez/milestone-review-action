@@ -5,8 +5,8 @@ inputs:
     description: The GitHub token used to create an authenticated client
     default: ${{github.token}}
     required: false
-  milestone-number:
-    description: 'The milestone number to check'
+  milestone-title:
+    description: 'The milestone to check'
     required: true
 runs:
   using: 'node12'
