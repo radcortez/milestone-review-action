@@ -2,10 +2,10 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 try {
-    const octokit = new github.GitHub(core.getInput('github-token'));
-
     const milestoneNumber = core.getInput('milestone-number');
     console.log(`Checking ${milestoneNumber}`);
+
+    const octokit = new github.GitHub(core.getInput('github-token'));
 
     octokit.issues.getMilestone({
         owner: github.context.repo.owner,
