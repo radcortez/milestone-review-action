@@ -17,6 +17,18 @@ try {
             return milestone.title === milestoneTitle;
         });
 
+        if (milestone == null) {
+            console.log(`Milestone ${milestoneTitle} Not Found!`);
+            octokit.pulls.createReview({
+                owner: github.context.repo.owner,
+                repo: github.context.repo.repo,
+                pull_number: github.context.payload.pull_request.number,
+                body: `Please add a Milestone for ${milestoneTitle}`,
+                event: 'REQUEST_CHANGES'
+            });
+            return;
+        }
+
         console.log(`Found Milestone ${milestone.title}`);
 
         if (milestone.open_issues > 0) {
@@ -39,12 +51,8 @@ try {
         }
 
     }).catch((error) => {
-        if (error.status === 404) {
-            core.setFailed(`Milestone ${milestoneTitle} Not Found!`);
-        } else {
-            console.debug(error);
-            core.setFailed('Unknown Error!')
-        }
+        console.debug(error);
+        core.setFailed('Unknown Error!')
     })
 
 } catch (error) {
