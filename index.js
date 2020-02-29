@@ -20,9 +20,22 @@ try {
         console.log(`Found Milestone ${milestone.title}`);
 
         if (milestone.open_issues > 0) {
-            core.setFailed(`Milestone ${milestone.title} still has ${milestone.open_issues} open issues!`);
+            console.log(`Milestone ${milestone.title} still has ${milestone.open_issues} open issues!`);
+            octokit.pulls.createReview({
+                owner: github.context.repo.owner,
+                repo: github.context.repo.repo,
+                pull_number: github.context.payload.pull_request.number,
+                body: `Milestone ${milestone.title} still has ${milestone.open_issues} open issues!`,
+                event: 'REQUEST_CHANGES'
+            });
         } else {
-            console.log(`Milestone has no issues open.`)
+            console.log(`Milestone has no issues open.`);
+            octokit.pulls.createReview({
+                owner: github.context.repo.owner,
+                repo: github.context.repo.repo,
+                pull_number: github.context.payload.pull_request.number,
+                event: 'APPROVE'
+            });
         }
 
     }).catch((error) => {
