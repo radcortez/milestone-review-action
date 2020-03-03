@@ -1,10 +1,10 @@
-name: 'Milestone Status Action'
+name: 'Milestone Review Action'
 description: 'Checks if the given Milestone exists and all the issues are closed'
 inputs:
   github-token:
-    description: The GitHub token used to create an authenticated client
+    description: 'The GitHub token used to create an authenticated client'
     default: ${{github.token}}
-    required: false
+    required: true
   milestone-title:
     description: 'The milestone to check'
     required: true
