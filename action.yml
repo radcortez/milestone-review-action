@@ -1,5 +1,8 @@
 name: 'Milestone Review Action'
 description: 'Checks if the given Milestone exists and all the issues are closed'
+branding:
+  icon: thumbs-up
+  color: red
 inputs:
   github-token:
     description: 'The GitHub token used to create an authenticated client'
